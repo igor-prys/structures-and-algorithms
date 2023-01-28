@@ -15,8 +15,8 @@ public class Main {
         list.addByIndex(3,4);
         list.removeElement(4);
         System.out.println(list);
-        System.out.println(list.getCounter());
-        System.out.println(list.contain(8));
+        System.out.println(list.getLength());
+        System.out.println(list.contains(8));
 
        // System.out.println("Value "+list.getValue(4));
         System.out.println();
