@@ -2,6 +2,7 @@ package org.example.structures;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class CustomHashMap<T, S> {
     private List<Node>[] array;
@@ -17,20 +18,47 @@ public class CustomHashMap<T, S> {
         this(DEFAULT_CAPACITY);
     }
 
+    private int calculateBuketIndex(T key) {
+        return key != null ? key.hashCode() % array.length : 0;
+    }
+
     public void add(T key, S value) {
         Node newNode = new Node(key, value);
-        int arrayBuket = key.hashCode() % array.length;
-        if (array[arrayBuket] == null) {
-            array[arrayBuket] = new LinkedList<>();
+        int arrayBuketIndex = calculateBuketIndex(key);
+        if (array[arrayBuketIndex] == null) {
+            array[arrayBuketIndex] = new LinkedList<>();
         }
-        for (Node node : array[arrayBuket]) {
-            if (node.getKey().equals(key)) {
-                node.setValue(value);
+        for (Node node : array[arrayBuketIndex]) {
+            if (Objects.equals(node.key, key)) {
+                node.value = value;
                 return;
             }
         }
-        array[arrayBuket].add(newNode);
+        array[arrayBuketIndex].add(newNode);
         size++;
+    }
+
+    public S get(T key) {
+        int arrayBuketIndex = calculateBuketIndex(key);
+        for (Node node : array[arrayBuketIndex]) {
+            if (Objects.equals(node.key, key)) {
+                return node.value;
+            }
+        }
+        return null;
+    }
+
+    public boolean containsKey(T key) {
+        int arrayBuketIndex = calculateBuketIndex(key);
+        if (array[arrayBuketIndex] == null) {
+            return false;
+        }
+        for (Node node : array[arrayBuketIndex]) {
+            if (Objects.equals(node.key, key)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public int getSize() {
@@ -44,30 +72,18 @@ public class CustomHashMap<T, S> {
                 continue;
             }
             for (Node node : list) {
-                result += node.key+": "+node.value + "; ";
+                result += node.key + ": " + node.value + "; ";
             }
         }
-        return result;
+        return result.trim();
     }
 
-    class Node {
-        private T key;
-        private S value;
+    private class Node {
+        T key;
+        S value;
 
         public Node(T key, S value) {
             this.key = key;
-            this.value = value;
-        }
-
-        public T getKey() {
-            return key;
-        }
-
-        public S getValue() {
-            return value;
-        }
-
-        public void setValue(S value) {
             this.value = value;
         }
     }
