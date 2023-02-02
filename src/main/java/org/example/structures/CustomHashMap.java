@@ -24,23 +24,23 @@ public class CustomHashMap<T, S> {
 
     public void add(T key, S value) {
         Node newNode = new Node(key, value);
-        int arrayBuketIndex = calculateBuketIndex(key);
-        if (array[arrayBuketIndex] == null) {
-            array[arrayBuketIndex] = new LinkedList<>();
+        int buketIndex = calculateBuketIndex(key);
+        if (array[buketIndex] == null) {
+            array[buketIndex] = new LinkedList<>();
         }
-        for (Node node : array[arrayBuketIndex]) {
+        for (Node node : array[buketIndex]) {
             if (Objects.equals(node.key, key)) {
                 node.value = value;
                 return;
             }
         }
-        array[arrayBuketIndex].add(newNode);
+        array[buketIndex].add(newNode);
         size++;
     }
 
     public S get(T key) {
-        int arrayBuketIndex = calculateBuketIndex(key);
-        for (Node node : array[arrayBuketIndex]) {
+        int buketIndex = calculateBuketIndex(key);
+        for (Node node : array[buketIndex]) {
             if (Objects.equals(node.key, key)) {
                 return node.value;
             }
@@ -49,11 +49,11 @@ public class CustomHashMap<T, S> {
     }
 
     public boolean containsKey(T key) {
-        int arrayBuketIndex = calculateBuketIndex(key);
-        if (array[arrayBuketIndex] == null) {
+        int buketIndex = calculateBuketIndex(key);
+        if (array[buketIndex] == null) {
             return false;
         }
-        for (Node node : array[arrayBuketIndex]) {
+        for (Node node : array[buketIndex]) {
             if (Objects.equals(node.key, key)) {
                 return true;
             }
