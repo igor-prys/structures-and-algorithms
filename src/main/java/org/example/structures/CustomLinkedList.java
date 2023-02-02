@@ -3,7 +3,7 @@ package org.example.structures;
 public class CustomLinkedList<T> {
     private Node firstNode;
     private Node lastNode;
-    private int counter = 0;
+    private int length = 0;
 
     public void add(T value) {
         Node newNode = new Node<T>(value);
@@ -11,14 +11,14 @@ public class CustomLinkedList<T> {
             firstNode = newNode;
         } else {
             newNode.previousNode = lastNode;
-            lastNode.setNextNode(newNode);
+            lastNode.nextNode = newNode;
         }
         lastNode = newNode;
-        counter++;
+        length++;
     }
 
     public void addByIndex(int index, T value) {
-        if (index > counter || index < 0) {
+        if (index > length || index < 0) {
             throw new LinkedListException("Sorry, index bigger than size");
         }
         Node newNode = new Node<T>(value);
@@ -26,53 +26,53 @@ public class CustomLinkedList<T> {
             firstNode.previousNode = newNode;
             newNode.nextNode = firstNode;
             firstNode = newNode;
-            counter++;
-        } else if (index == counter) {
-            lastNode.setNextNode(newNode);
+        } else if (index == length) {
+            lastNode.nextNode = newNode;
             lastNode = newNode;
-            counter++;
         } else {
             int currentIndex = 0;
             Node current = firstNode;
             while (current != null) {
                 if (index == currentIndex) {
-                    current.getPreviousNode().setNextNode(newNode);
-                    newNode.setPreviousNode(current.getPreviousNode());
-                    current.setPreviousNode(newNode);
+                    current.previousNode.nextNode = newNode;
+                    newNode.previousNode = current.previousNode;
+                    current.previousNode = newNode;
                     newNode.nextNode = current;
-                    counter++;
                     return;
                 }
                 currentIndex++;
-                current = current.getNextNode();
+                current = current.nextNode;
             }
+        }
+        length++;
+    }
+
+    private void validateIndex(int index) {
+        if (index >= length || index < 0) {
+            throw new LinkedListException("Sorry, incorrect index");
         }
     }
 
     public T getValue(int index) {
-        if (index < 0 || index >= counter ) {
-            throw new LinkedListException("Sorry, incorrect index");
-        }
+        validateIndex(index);
         Node current = firstNode;
         int currentIndex = 0;
         while (current != null) {
             if (currentIndex == index) {
-                return (T) current.getValue();
+                return (T) current.value;
             }
-            current = current.getNextNode();
+            current = current.nextNode;
             currentIndex++;
         }
         return null;
     }
 
     public void removeElement(int index) {
-        if (index >= counter || index < 0) {
-            throw new LinkedListException("Sorry, incorrect index");
-        }
+        validateIndex(index);
         if (index == 0) {
             firstNode = firstNode.nextNode;
-            firstNode.setPreviousNode(null);
-        } else if (index == counter - 1) {
+            firstNode.previousNode = null;
+        } else if (index == length - 1) {
             lastNode = lastNode.previousNode;
             lastNode.nextNode = null;
         } else {
@@ -80,17 +80,17 @@ public class CustomLinkedList<T> {
             int currentIndex = 0;
             while (current != null) {
                 if (currentIndex == index) {
-                    current.previousNode.setNextNode(current.nextNode);
-                    current.nextNode.setPreviousNode(current.previousNode);
+                    current.previousNode.nextNode = current.nextNode;
+                    current.nextNode.previousNode = current.previousNode;
                 }
                 current = current.nextNode;
                 currentIndex++;
             }
         }
-        counter--;
+        length--;
     }
 
-    public boolean contain(T elem) {
+    public boolean contains(T elem) {
         Node current = firstNode;
         while (current != null) {
             if (current.value == elem) {
@@ -101,16 +101,16 @@ public class CustomLinkedList<T> {
         return false;
     }
 
-    public int getCounter() {
-        return counter;
+    public int getLength() {
+        return length;
     }
 
     public String toString() {
         String result = "[";
         Node current = firstNode;
         while (current != null) {
-            result += current.getValue();
-            current = current.getNextNode();
+            result += current.value;
+            current = current.nextNode;
             if (current != null) {
                 result += ", ";
             }
@@ -120,37 +120,15 @@ public class CustomLinkedList<T> {
 
 
     private class Node<T> {
-        private T value;
-        private Node nextNode;
-        private Node previousNode;
+        public T value;
+        public Node nextNode;
+        public Node previousNode;
 
         public Node(T value) {
             this.value = value;
         }
 
-        public T getValue() {
-            return value;
-        }
 
-        public void setValue(T value) {
-            this.value = value;
-        }
-
-        public Node getNextNode() {
-            return nextNode;
-        }
-
-        public void setNextNode(Node nextNode) {
-            this.nextNode = nextNode;
-        }
-
-        public Node getPreviousNode() {
-            return previousNode;
-        }
-
-        public void setPreviousNode(Node previousNode) {
-            this.previousNode = previousNode;
-        }
     }
 
 }

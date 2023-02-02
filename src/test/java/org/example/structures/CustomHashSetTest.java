@@ -5,11 +5,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CustomHashSetTest {
-    CustomHashSet chs;
+    private CustomHashSet chs;
 
     @BeforeEach
     public void init() {
-        chs = new CustomHashSet(5);
+        chs = new CustomHashSet(1);
     }
 
     @Test
@@ -37,5 +37,12 @@ public class CustomHashSetTest {
         chs.add(null);
         chs.add("a");
         Assertions.assertEquals("null a", chs.toString());
+    }
+
+    @Test
+    public void shouldCheckNullDuplicates() {
+        chs.add(null);
+        chs.add(null);
+        Assertions.assertEquals("null", chs.toString());
     }
 }
