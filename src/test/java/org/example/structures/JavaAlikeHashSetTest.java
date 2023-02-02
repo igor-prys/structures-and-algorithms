@@ -8,9 +8,10 @@ public class JavaAlikeHashSetTest {
     private JavaAlikeHashSet jhs;
 
     @BeforeEach
-    public void before(){
-        jhs=new JavaAlikeHashSet();
+    public void before() {
+        jhs = new JavaAlikeHashSet();
     }
+
     @Test
     public void shouldCheckMethodAdd() {
         jhs.add("a");
