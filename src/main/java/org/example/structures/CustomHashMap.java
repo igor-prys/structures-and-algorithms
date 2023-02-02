@@ -1,8 +1,6 @@
 package org.example.structures;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class CustomHashMap<T, S> {
     private List<Node>[] array;
@@ -61,6 +59,19 @@ public class CustomHashMap<T, S> {
         return false;
     }
 
+    public Set<Node> getNodes() {
+        Set<Node> nodes = new HashSet<>();
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == null) {
+                continue;
+            }
+            for (Node node : array[i]) {
+                nodes.add(node);
+            }
+        }
+        return nodes;
+    }
+
     public int getSize() {
         return size;
     }
@@ -78,7 +89,7 @@ public class CustomHashMap<T, S> {
         return result.trim();
     }
 
-    private class Node {
+    public class Node {
         T key;
         S value;
 

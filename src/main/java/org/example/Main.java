@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.structures.CustomLinkedList;
+import org.example.structures.JavaAlikeHashSet;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,8 +16,8 @@ public class Main {
         list.addByIndex(3,4);
         list.removeElement(4);
         System.out.println(list);
-        System.out.println(list.getLength());
-        System.out.println(list.contains(8));
+        System.out.println(list.getCounter());
+        System.out.println(list.contain(8));
 
        // System.out.println("Value "+list.getValue(4));
         System.out.println();
@@ -30,6 +31,9 @@ public class Main {
         list1.remove(4);
         System.out.println(list1);
         System.out.println(list1.size());
-
+        JavaAlikeHashSet<String> jahs=new JavaAlikeHashSet<>(15);
+        jahs.add(null);
+        jahs.add("bbbbb");
+        System.out.println(jahs);
     }
 }
