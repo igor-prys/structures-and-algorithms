@@ -1,9 +1,8 @@
 package org.example;
 
 import org.example.structures.CustomLinkedList;
-import org.example.structures.Iterator;
 
-import java.util.LinkedList;
+import java.util.Iterator;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,9 +10,13 @@ public class Main {
         linkedList.add("Hello");
         linkedList.add("world");
         linkedList.add("!");
-        Iterator iterator = linkedList.getIterator();
+        Iterator iterator = linkedList.iterator();
         while (iterator.hasNext()) {
             System.out.print(iterator.next() + " ");
+        }
+        System.out.println();
+        for (String s : linkedList) {
+            System.out.print(s + " ");
         }
     }
 }
