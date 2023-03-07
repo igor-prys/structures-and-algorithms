@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+import java.util.Objects;
+
 
 public class CustomLinkedListTest {
     private CustomLinkedList ll;
@@ -86,5 +89,15 @@ public class CustomLinkedListTest {
         Exception ex = Assertions.assertThrows(LinkedListException.class, () -> ll.removeElement(4));
         Assertions.assertNotNull(ex);
         Assertions.assertEquals("Sorry, incorrect index", ex.getMessage());
+    }
+
+    @Test
+    public void shouldCheckIterator() {
+        String result = "";
+        for (Object num : ll) {
+            result += num + " ";
+        }
+        result = result.trim();
+        Assertions.assertEquals("1 2 3 5", result);
     }
 }

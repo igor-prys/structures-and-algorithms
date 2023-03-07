@@ -1,6 +1,8 @@
 package org.example.structures;
 
-public class CustomLinkedList<T> {
+import java.util.Iterator;
+
+public class CustomLinkedList<T> implements Iterable<T> {
     private Node firstNode;
     private Node lastNode;
     private int length = 0;
@@ -131,4 +133,26 @@ public class CustomLinkedList<T> {
 
     }
 
+    class LinkedListIterator implements Iterator<T> {
+        private Node current = firstNode;
+
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public T next() {
+            Node temp = current;
+            current = current.nextNode;
+            return (T) temp.value;
+        }
+    }
+
+    public Iterator iterator() {
+        return new LinkedListIterator();
+    }
 }
+
+
+
+
+
