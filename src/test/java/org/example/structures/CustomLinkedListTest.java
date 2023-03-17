@@ -4,12 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Iterator;
-import java.util.Objects;
-
 
 public class CustomLinkedListTest {
-    private CustomLinkedList ll;
+    private CustomLinkedList<Integer> ll;
 
     @BeforeEach
     public void shouldCreateLinkedList() {
@@ -94,7 +91,7 @@ public class CustomLinkedListTest {
     @Test
     public void shouldCheckIterator() {
         String result = "";
-        for (Object num : ll) {
+        for (Integer num : ll) {
             result += num + " ";
         }
         result = result.trim();
