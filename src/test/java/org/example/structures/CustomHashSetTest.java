@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CustomHashSetTest {
-    private CustomHashSet chs;
+    private CustomHashSet<String> chs;
 
     @BeforeEach
     public void init() {
