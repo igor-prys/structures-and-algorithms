@@ -60,15 +60,5 @@ public class CustomHashSet <T> {
                 flatMap(bucket->bucket.stream()).
                 map(element->element+"").
                 reduce("",(result,element)->result+element+" ").trim();
-//        String result = "";
-//        for (List<String> list : array) {
-//            if (list == null) {
-//                continue;
-//            }
-//            for (String element : list) {
-//                result += element + " ";
-//            }
-//        }
-//        return result.trim();
     }
 }

@@ -17,7 +17,9 @@ public class CustomArrayListTest {
 
     @Test
     public void shouldCheckMethodAdd() {
-        Assertions.assertEquals("hello World 1 2 3 4 5", list.toString());
+        list.add("6");
+        list.add("7","8","9");
+        Assertions.assertEquals("hello World 1 2 3 4 5 6 7 8 9", list.toString());
     }
 
     @Test
@@ -36,8 +38,8 @@ public class CustomArrayListTest {
 
     @Test
     public void shouldCheckMethodContain() {
-        Assertions.assertTrue(list.contain("1"));
-        Assertions.assertFalse(list.contain("Gosha"));
+        Assertions.assertTrue(list.contains("1"));
+        Assertions.assertFalse(list.contains("Gosha"));
     }
 
     @Test
@@ -50,4 +52,29 @@ public class CustomArrayListTest {
         result = result.trim();
         Assertions.assertEquals("hello World 1 2 3 4 5", result);
     }
+
+    @Test
+    public void shouldCheckNull() {
+        list = new CustomArrayList();
+        list.add("1", "2", null, "3", "4");
+        Assertions.assertTrue(list.contains(null));
+        Assertions.assertEquals("1 2 null 3 4", list.toString());
+    }
+    @Test
+    public void shouldCheckInsert(){
+        list.insert(2,"0");
+        list.insert(0,"x");
+        list.insert(9,"9");
+        Assertions.assertEquals("x hello World 0 1 2 3 4 5 9",list.toString());
+    }
+    @Test
+    public void shouldCheckSizeIncreasingForInsert(){
+        list=new CustomArrayList(3);
+        list.add("1");
+        list.add("2");
+        list.add("3");
+        list.insert(3,"0");
+        Assertions.assertEquals("1 2 3 0",list.toString());
+    }
+
 }

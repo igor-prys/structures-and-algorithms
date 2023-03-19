@@ -1,5 +1,8 @@
 package org.example.structures;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class CustomArrayList implements IteratorCreator {
     private String[] array;
 
@@ -39,9 +42,22 @@ public class CustomArrayList implements IteratorCreator {
         }
     }
 
-    public boolean contain(String value) {
+    public void insert(int index, String value) {
+        if (index > capacity || index < 0) {
+            throw new RuntimeException("Incorrect index: " + index);
+        }
+        int arrayLength = capacity == array.length ? array.length * 2 : array.length;
+        String[] newArray = new String[arrayLength];
+        System.arraycopy(array, 0, newArray, 0, index);
+        newArray[index] = value;
+        System.arraycopy(array, index, newArray, index + 1, capacity - index);
+        array = newArray;
+        capacity++;
+    }
+
+    public boolean contains(String value) {
         for (int i = 0; i < capacity; i++) {
-            if (array[i].equals(value)) {
+            if (Objects.equals(array[i], value)) {
                 return true;
             }
         }
@@ -64,17 +80,12 @@ public class CustomArrayList implements IteratorCreator {
     }
 
     public void deleteByIndex(int index) {
-        if (index >= capacity) {
+        if (index >= capacity || index < 0) {
             throw new RuntimeException("Incorrect index: " + index);
         }
-        int position = 0;
         String[] newArray = new String[array.length];
-        for (int i = 0; i < capacity; i++) {
-            if (i == index) {
-                continue;
-            }
-            newArray[position++] = array[i];
-        }
+        System.arraycopy(array, 0, newArray, 0, index);
+        System.arraycopy(array, index + 1, newArray, index, capacity - index);
         capacity--;
         array = newArray;
     }
@@ -84,13 +95,9 @@ public class CustomArrayList implements IteratorCreator {
     }
 
     public String toString() {
-        String result = "";
-        for (int i = 0; i < capacity; i++) {
-            result += array[i] + " ";
-        }
-        return result.trim();
+        return Arrays.stream(array).limit(capacity).
+                reduce("", (result, element) -> result + element + " ").trim();
     }
-
 
     private class CustomArrayListIterator implements Iterator {
         int index = 0;
