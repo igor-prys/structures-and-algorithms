@@ -2,10 +2,25 @@ package org.example.structures;
 
 import java.util.Iterator;
 
-public class CustomLinkedList<T> implements Iterable<T> {
+public class CustomLinkedList<T> implements CustomList<T>, Iterable<T> {
     private Node firstNode;
     private Node lastNode;
     private int length = 0;
+
+    @Override
+    public boolean deleteByValue(T value) {
+        Node<T>current=firstNode;
+        for(int i=0;i<length;i++){
+            if(current.value.equals(value)){
+                current.nextNode.previousNode=current.previousNode;
+                current.previousNode.nextNode=current.nextNode;
+                length--;
+                return true;
+            }
+            current=current.nextNode;
+        }
+        return false;
+    }
 
     public void add(T value) {
         Node newNode = new Node<T>(value);
@@ -19,7 +34,7 @@ public class CustomLinkedList<T> implements Iterable<T> {
         length++;
     }
 
-    public void addByIndex(int index, T value) {
+    public void insert(int index, T value) {
         if (index > length || index < 0) {
             throw new LinkedListException("Sorry, index bigger than size");
         }
@@ -69,7 +84,7 @@ public class CustomLinkedList<T> implements Iterable<T> {
         return null;
     }
 
-    public void removeElement(int index) {
+    public void deleteByIndex(int index) {
         validateIndex(index);
         if (index == 0) {
             firstNode = firstNode.nextNode;
@@ -91,6 +106,8 @@ public class CustomLinkedList<T> implements Iterable<T> {
         }
         length--;
     }
+
+
 
     public boolean contains(T elem) {
         Node current = firstNode;
