@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-public class CustomHashSet <T> {
+public class CustomHashSet<T> {
     private List<T>[] array;
     private static final int ARRAY_CAPACITY = 15;
 
@@ -30,7 +30,7 @@ public class CustomHashSet <T> {
             array[bucketIndex] = new LinkedList<>();
         }
         for (T element : array[bucketIndex]) {
-            if (Objects.equals(element,value)) {
+            if (Objects.equals(element, value)) {
                 return;
             }
         }
@@ -56,9 +56,9 @@ public class CustomHashSet <T> {
     }
 
     public String toString() {
-        return Arrays.stream(array).filter(bucket->bucket!=null).
-                flatMap(bucket->bucket.stream()).
-                map(element->element+"").
-                reduce("",(result,element)->result+element+" ").trim();
+        return Arrays.stream(array).filter(bucket -> bucket != null).
+                flatMap(bucket -> bucket.stream()).
+                map(element -> element + "").
+                reduce("", (result, element) -> result + element + " ").trim();
     }
 }

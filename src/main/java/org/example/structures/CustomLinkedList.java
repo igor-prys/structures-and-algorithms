@@ -9,15 +9,15 @@ public class CustomLinkedList<T> implements CustomList<T>, Iterable<T> {
 
     @Override
     public boolean deleteByValue(T value) {
-        Node<T>current=firstNode;
-        for(int i=0;i<length;i++){
-            if(current.value.equals(value)){
-                current.nextNode.previousNode=current.previousNode;
-                current.previousNode.nextNode=current.nextNode;
+        Node<T> current = firstNode;
+        for (int i = 0; i < length; i++) {
+            if (current.value.equals(value)) {
+                current.nextNode.previousNode = current.previousNode;
+                current.previousNode.nextNode = current.nextNode;
                 length--;
                 return true;
             }
-            current=current.nextNode;
+            current = current.nextNode;
         }
         return false;
     }
@@ -106,7 +106,6 @@ public class CustomLinkedList<T> implements CustomList<T>, Iterable<T> {
         }
         length--;
     }
-
 
 
     public boolean contains(T elem) {

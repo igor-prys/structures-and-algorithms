@@ -97,9 +97,10 @@ public class CustomLinkedListTest {
         result = result.trim();
         Assertions.assertEquals("1 2 3 5", result);
     }
+
     @Test
-    public void shouldCheckDeleteByValue(){
+    public void shouldCheckDeleteByValue() {
         ll.deleteByValue(3);
-        Assertions.assertEquals("[1, 2, 5]",ll.toString());
+        Assertions.assertEquals("[1, 2, 5]", ll.toString());
     }
 }
