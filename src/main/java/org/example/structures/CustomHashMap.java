@@ -77,16 +77,12 @@ public class CustomHashMap<T, S> {
     }
 
     public String toString() {
-        String result = "";
-        for (List<Node> list : array) {
-            if (list == null) {
-                continue;
-            }
-            for (Node node : list) {
-                result += node.key + ": " + node.value + "; ";
-            }
-        }
-        return result.trim();
+        return Arrays.stream(array).
+                filter(element -> element != null).
+                flatMap(element -> element.stream()).
+                map(node -> node.key + ": " + node.value).
+                reduce("", (result, element) -> result + element + "; ").
+                trim();
     }
 
     public class Node {
