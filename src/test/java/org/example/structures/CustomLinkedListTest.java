@@ -19,25 +19,25 @@ public class CustomLinkedListTest {
 
     @Test
     public void shouldAddElementByIndexFirst() {
-        ll.addByIndex(0, 0);
+        ll.insert(0, 0);
         Assertions.assertEquals("[0, 1, 2, 3, 5]", ll.toString());
     }
 
     @Test
     public void shouldAddElementByIndexMiddle() {
-        ll.addByIndex(3, 4);
+        ll.insert(3, 4);
         Assertions.assertEquals("[1, 2, 3, 4, 5]", ll.toString());
     }
 
     @Test
     public void shouldAddElementByIndexEnd() {
-        ll.addByIndex(4, 6);
+        ll.insert(4, 6);
         Assertions.assertEquals("[1, 2, 3, 5, 6]", ll.toString());
     }
 
     @Test
     public void shouldCheckExceptionByMethodAddElement() {
-        Exception ex = Assertions.assertThrows(LinkedListException.class, () -> ll.addByIndex(10, 10));
+        Exception ex = Assertions.assertThrows(LinkedListException.class, () -> ll.insert(10, 10));
         Assertions.assertNotNull(ex);
         Assertions.assertEquals("Sorry, index bigger than size", ex.getMessage());
     }
@@ -68,11 +68,11 @@ public class CustomLinkedListTest {
         ll.add(2);
         ll.add(3);
         ll.add(4);
-        ll.removeElement(2);
+        ll.deleteByIndex(2);
         Assertions.assertEquals("[1, 2, 4]", ll.toString());
-        ll.removeElement(2);
+        ll.deleteByIndex(2);
         Assertions.assertEquals("[1, 2]", ll.toString());
-        ll.removeElement(0);
+        ll.deleteByIndex(0);
         Assertions.assertEquals("[2]", ll.toString());
     }
 
@@ -83,7 +83,7 @@ public class CustomLinkedListTest {
         ll.add(2);
         ll.add(3);
         ll.add(4);
-        Exception ex = Assertions.assertThrows(LinkedListException.class, () -> ll.removeElement(4));
+        Exception ex = Assertions.assertThrows(LinkedListException.class, () -> ll.deleteByIndex(4));
         Assertions.assertNotNull(ex);
         Assertions.assertEquals("Sorry, incorrect index", ex.getMessage());
     }
@@ -96,5 +96,10 @@ public class CustomLinkedListTest {
         }
         result = result.trim();
         Assertions.assertEquals("1 2 3 5", result);
+    }
+    @Test
+    public void shouldCheckDeleteByValue(){
+        ll.deleteByValue(3);
+        Assertions.assertEquals("[1, 2, 5]",ll.toString());
     }
 }

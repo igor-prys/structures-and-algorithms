@@ -3,24 +3,24 @@ package org.example.structures;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class CustomArrayList implements IteratorCreator {
-    private String[] array;
+public class CustomArrayList<T> implements CustomList<T>, IteratorCreator {
+    private T[] array;
 
     private int capacity = 0;
     private static final int SIZE = 10;
 
 
     public CustomArrayList(int size) {
-        array = new String[size];
+        array = (T[]) new Object[SIZE];
     }
 
     public CustomArrayList() {
         this(SIZE);
     }
 
-    public void add(String value) {
+    public void add(T value) {
         if (capacity == array.length) {
-            String[] newArray = new String[array.length * 2];
+            T[] newArray = (T[]) new Object[array.length * 2];
             for (int i = 0; i < array.length; i++) {
                 newArray[i] = array[i];
             }
@@ -29,9 +29,9 @@ public class CustomArrayList implements IteratorCreator {
         array[capacity++] = value;
     }
 
-    public void add(String... values) {
+    public void add(T... values) {
         if (capacity + values.length >= array.length) {
-            String[] newArray = new String[(capacity + values.length) * 2];
+            T[] newArray = (T[]) new Object[(capacity + values.length) * 2];
             for (int i = 0; i < capacity; i++) {
                 newArray[i] = array[i];
             }
@@ -42,12 +42,12 @@ public class CustomArrayList implements IteratorCreator {
         }
     }
 
-    public void insert(int index, String value) {
+    public void insert(int index, T value) {
         if (index > capacity || index < 0) {
             throw new RuntimeException("Incorrect index: " + index);
         }
         int arrayLength = capacity == array.length ? array.length * 2 : array.length;
-        String[] newArray = new String[arrayLength];
+        T[] newArray = (T[]) new Object[arrayLength];
         System.arraycopy(array, 0, newArray, 0, index);
         newArray[index] = value;
         System.arraycopy(array, index, newArray, index + 1, capacity - index);
@@ -55,7 +55,7 @@ public class CustomArrayList implements IteratorCreator {
         capacity++;
     }
 
-    public boolean contains(String value) {
+    public boolean contains(T value) {
         for (int i = 0; i < capacity; i++) {
             if (Objects.equals(array[i], value)) {
                 return true;
@@ -64,8 +64,8 @@ public class CustomArrayList implements IteratorCreator {
         return false;
     }
 
-    public void deleteByValue(String value) {
-        String[] newArray = new String[array.length];
+    public boolean deleteByValue(T value) {
+        T[] newArray = (T[]) new Object[array.length];
         int position = 0;
         for (int i = 0; i < capacity; i++) {
             if (array[i].equals(value)) {
@@ -76,14 +76,16 @@ public class CustomArrayList implements IteratorCreator {
         if (position != capacity) {
             capacity--;
             array = newArray;
+            return true;
         }
+        return false;
     }
 
     public void deleteByIndex(int index) {
         if (index >= capacity || index < 0) {
             throw new RuntimeException("Incorrect index: " + index);
         }
-        String[] newArray = new String[array.length];
+        T[] newArray = (T[]) new Object[array.length];
         System.arraycopy(array, 0, newArray, 0, index);
         System.arraycopy(array, index + 1, newArray, index, capacity - index);
         capacity--;
@@ -96,6 +98,7 @@ public class CustomArrayList implements IteratorCreator {
 
     public String toString() {
         return Arrays.stream(array).limit(capacity).
+                map(el -> el + "").
                 reduce("", (result, element) -> result + element + " ").trim();
     }
 
@@ -106,7 +109,7 @@ public class CustomArrayList implements IteratorCreator {
             return index < capacity;
         }
 
-        public String next() {
+        public T next() {
             return array[index++];
         }
     }
