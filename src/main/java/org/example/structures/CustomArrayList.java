@@ -17,24 +17,22 @@ public class CustomArrayList<T> implements CustomList<T>, IteratorCreator {
         this(DEFAULT_CAPACITY);
     }
 
-    private void extendArray(int initialCapacity) {
+    private void grow(int initialCapacity) {
         T[] newArray = (T[]) new Object[initialCapacity * 2];
-        for (int i = 0; i < array.length; i++) {
-            newArray[i] = array[i];
-        }
+        System.arraycopy(array, 0, newArray, 0, array.length);
         array = newArray;
     }
 
     public void add(T value) {
         if (size == array.length) {
-            extendArray(array.length);
+            grow(array.length);
         }
         array[size++] = value;
     }
 
     public void add(T... values) {
         if (size + values.length >= array.length) {
-           extendArray(size + values.length);
+            grow(size + values.length);
         }
         for (int i = 0; i < values.length; i++) {
             array[size++] = values[i];
