@@ -1,6 +1,6 @@
 package org.example.structures;
 
-public interface Iterator {
+public interface CustomIterator {
     boolean hasNext();
 
     Object next();

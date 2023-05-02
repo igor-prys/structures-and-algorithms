@@ -1,9 +1,10 @@
 package org.example.structures;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Objects;
 
-public class CustomArrayList<T> implements CustomList<T>, IteratorCreator {
+public class CustomArrayList<T> implements CustomList<T>, Iterable {
     private T[] array;
 
     private int size = 0;
@@ -89,7 +90,8 @@ public class CustomArrayList<T> implements CustomList<T>, IteratorCreator {
         array = newArray;
     }
 
-    public Iterator createIterator() {
+    @Override
+    public Iterator iterator() {
         return new CustomArrayListIterator();
     }
 

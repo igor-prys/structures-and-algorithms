@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+
 public class CustomArrayListTest {
     private CustomArrayList list;
 
@@ -44,10 +46,10 @@ public class CustomArrayListTest {
 
     @Test
     public void shouldCheckIterator() {
-        Iterator iterator = list.createIterator();
+        Iterator customIterator = list.iterator();
         String result = "";
-        while (iterator.hasNext()) {
-            result += iterator.next() + " ";
+        while (customIterator.hasNext()) {
+            result += customIterator.next() + " ";
         }
         result = result.trim();
         Assertions.assertEquals("hello World 1 2 3 4 5", result);
