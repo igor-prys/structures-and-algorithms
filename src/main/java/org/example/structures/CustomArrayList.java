@@ -11,7 +11,7 @@ public class CustomArrayList<T> implements CustomList<T>, Iterable {
     private static final int DEFAULT_CAPACITY = 10;
 
     public CustomArrayList(int size) {
-        array = (T[]) new Object[DEFAULT_CAPACITY];
+        array = (T[]) new Object[size];
     }
 
     public CustomArrayList() {
