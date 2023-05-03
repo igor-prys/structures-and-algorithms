@@ -1,22 +1,14 @@
 package org.example;
 
-import org.example.structures.CustomLinkedList;
-import org.example.structures.CustomStack;
-
-import java.util.Iterator;
-import java.util.Stack;
+import org.example.structures.DynamicStack;
 
 public class Main {
     public static void main(String[] args) {
-        CustomStack<Integer> cs = new CustomStack<>();
-        cs.push(1);
-        cs.push(2);
-        cs.push(3);
-        cs.push(4);
-        cs.push(5);
-        cs.push(6);
-        while (!cs.isEmpty()) {
-            System.out.print(cs.pull() + " ");
-        }
+        DynamicStack<Integer> ds = new DynamicStack<>();
+        ds.push(1);
+        ds.push(2);
+        ds.push(3);
+        ds.push(4);
+        System.out.println(ds);
     }
 }
