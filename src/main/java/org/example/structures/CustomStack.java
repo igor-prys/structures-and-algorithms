@@ -20,14 +20,14 @@ public class CustomStack<T> {
         }
     }
 
-    public T pull() {
+    public T pop() {
         if (counter == 0) {
             throw new RuntimeException("Stack is empty");
         }
         return array[--counter];
     }
 
-    public T top() {
+    public T peek() {
         return array[counter - 1];
     }
 
